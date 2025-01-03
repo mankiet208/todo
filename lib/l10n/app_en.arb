@@ -1,0 +1,16 @@
+{
+  "general_tryAgain": "Try again",
+  "general_close": "Close",
+  "error_loadingHome": "Error while loading home",
+  "loginScreen_title1": "Welcome to",
+  "loginScreen_title2": "TODO",
+  "loginScreen_email": "Email",
+  "loginScreen_password": "Password",
+  "loginScreen_login": "Login",
+  "loginScreen_dontHaveAccount": "Don't have an account?",
+  "loginScreen_registerNow": "Register now",
+  "loginScreen_userNotFound": "No user found for that email.",
+  "loginScreen_wrongPassword": "Wrong password provided for that user.",
+  "loginScreen_invalidEmail": "Invalid email format",
+  "loginScreen_invalidPassword": "Password must be at least 8 characters long"
+}

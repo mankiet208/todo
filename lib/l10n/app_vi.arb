@@ -1,0 +1,16 @@
+{
+  "general_tryAgain": "Thử lại",
+  "general_close": "Đóng",
+  "error_loadingHome": "Lỗi khi chuẩn bị dữ liệu trang Home",
+  "loginScreen_title1": "Chào mừng đến",
+  "loginScreen_title2": "TODO",
+  "loginScreen_email": "Email",
+  "loginScreen_password": "Mật khẩu",
+  "loginScreen_login": "Đăng nhập",
+  "loginScreen_dontHaveAccount": "Chưa có tài khoản?",
+  "loginScreen_registerNow": "Đăng ký ngay",
+  "loginScreen_userNotFound": "Không tìm thấy tài khoản.",
+  "loginScreen_wrongPassword": "Sai mật khẩu.",
+  "loginScreen_invalidEmail": "Sai email",
+  "loginScreen_invalidPassword": "Mật khẩu phải có tối thiếu 8 kí tự"
+}
