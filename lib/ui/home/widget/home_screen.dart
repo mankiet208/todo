@@ -251,11 +251,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void _onUpdateTodo() {
     if (viewModel.updateTodo.isCompleted) {
       viewModel.updateTodo.clearResult();
-
-      AppSnackBar.showSnackBarSuccess(
-        context,
-        message: 'Todo updated successfully.',
-      );
       return;
     }
 

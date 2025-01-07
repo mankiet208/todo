@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:implicitly_animated_list/implicitly_animated_list.dart';
 import 'package:todo/domain/models/todo/todo.dart';
 import 'package:todo/ui/core/themes/dimens.dart';
 import 'package:todo/ui/home/view_model/home_view_model.dart';
@@ -39,11 +40,9 @@ class HomeBody extends StatelessWidget {
         right: Dimens.padding,
         bottom: 100,
       ),
-      sliver: SliverList.separated(
-        itemCount: viewModel.todos.length,
-        itemBuilder: (_, index) {
-          final todo = viewModel.todos[index];
-
+      sliver: SliverImplicitlyAnimatedList(
+        itemData: viewModel.todos,
+        itemBuilder: (context, todo) {
           return _ToDo(
             key: ValueKey(todo.id),
             todo: todo,
@@ -58,8 +57,8 @@ class HomeBody extends StatelessWidget {
             },
           );
         },
-        separatorBuilder: (context, index) {
-          return SizedBox(height: Dimens.extraSmallPadding);
+        itemEquality: (a, b) {
+          return a.id == b.id;
         },
       ),
     );
@@ -90,46 +89,49 @@ class _ToDo extends StatelessWidget {
           ),
         ),
       ),
-      child: Slidable(
-        key: ValueKey(todo.id),
-        endActionPane: ActionPane(
-          extentRatio: 0.25,
-          motion: DrawerMotion(),
-          children: [
-            SlidableAction(
-              onPressed: (_) => onDelete(todo.id),
-              backgroundColor: context.colorScheme.error,
-              foregroundColor: context.colorScheme.onError,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
-          ],
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: context.colorScheme.onPrimaryContainer,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black,
-                offset: Offset(0, 0.5),
-                blurRadius: 0.5,
-                spreadRadius: 0,
-              )
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Slidable(
+          key: ValueKey(todo.id),
+          endActionPane: ActionPane(
+            extentRatio: 0.25,
+            motion: DrawerMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (_) => onDelete(todo.id),
+                backgroundColor: context.colorScheme.error,
+                foregroundColor: context.colorScheme.onError,
+                icon: Icons.delete,
+                label: 'Delete',
+              ),
             ],
           ),
-          child: CheckboxListTile(
-            title: Text(todo.title),
-            secondary: Icon(Icons.star_outline),
-            controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: Dimens.smallPadding,
-              horizontal: Dimens.padding,
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colorScheme.onPrimaryContainer,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(0, 0.5),
+                  blurRadius: 0.5,
+                  spreadRadius: 0,
+                )
+              ],
             ),
-            activeColor: context.colorScheme.primary,
-            checkColor: context.colorScheme.onPrimary,
-            checkboxScaleFactor: 1.4,
-            value: todo.isDone,
-            onChanged: (bool? val) => onChangeStatus(val),
+            child: CheckboxListTile(
+              title: Text(todo.title),
+              secondary: Icon(Icons.star_outline),
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: Dimens.smallPadding,
+                horizontal: Dimens.padding,
+              ),
+              activeColor: context.colorScheme.primary,
+              checkColor: context.colorScheme.onPrimary,
+              checkboxScaleFactor: 1.4,
+              value: todo.isDone,
+              onChanged: (bool? val) => onChangeStatus(val),
+            ),
           ),
         ),
       ),

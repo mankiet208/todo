@@ -52,6 +52,7 @@ dependencies:
   firebase_auth: ^5.3.4
   cloud_firestore: ^5.6.0
   flutter_slidable: ^3.1.2
+  implicitly_animated_list: ^2.3.0
   
 dev_dependencies:
   flutter_test:

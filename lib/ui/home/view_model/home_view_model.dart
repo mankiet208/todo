@@ -157,6 +157,27 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void _sortTodos() {
-    _todos.sort((a, b) => b.isDone ? -1 : 1);
+    final unselectedList =
+        _todos.where((item) => item.isDone == false).toList();
+    final selectedList = _todos.where((item) => item.isDone == true).toList();
+
+    unselectedList.sortByFirstLetter();
+    selectedList.sortByFirstLetter();
+
+    _todos = [...unselectedList, ...selectedList];
+
+    // _todos.sort((a, b) => b.isDone ? -1 : 1);
+  }
+}
+
+extension ListTodoExtension on List<Todo> {
+  void sortByFirstLetter() {
+    if (isEmpty) return;
+
+    sort((a, b) {
+      final firstLetterA = a.title[0];
+      final firstLetterB = b.title[0];
+      return firstLetterA.compareTo(firstLetterB);
+    });
   }
 }
