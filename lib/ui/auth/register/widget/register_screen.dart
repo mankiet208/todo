@@ -2,40 +2,38 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo/routing/routes.dart';
-import 'package:todo/ui/auth/login/view_model/login_view_model.dart';
+import 'package:todo/ui/auth/register/view_model/register_view_model.dart';
 import 'package:todo/ui/core/themes/colors.dart';
 import 'package:todo/ui/core/themes/dimens.dart';
 import 'package:todo/utils/extensions/context_extension.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({
     super.key,
     required this.viewModel,
   });
 
-  final LoginViewModel viewModel;
+  final RegisterViewModel viewModel;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  LoginViewModel get viewModel => widget.viewModel;
+class _RegisterScreenState extends State<RegisterScreen> {
+  RegisterViewModel get viewModel => widget.viewModel;
 
-  final TextEditingController _emailController =
-      TextEditingController(); // email@example.com
-  final TextEditingController _passwordController =
-      TextEditingController(); // password
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    viewModel.login.addListener(_onResult);
+    viewModel.register.addListener(_onResult);
   }
 
   @override
   void dispose() {
-    viewModel.login.removeListener(_onResult);
+    viewModel.register.removeListener(_onResult);
     super.dispose();
   }
 
@@ -111,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: FilledButton(
                           onPressed: viewModel.isFormValid
                               ? () {
-                                  viewModel.login.execute((
+                                  viewModel.register.execute((
                                     _emailController.value.text,
                                     _passwordController.value.text,
                                   ));
@@ -123,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           child: Text(
-                            context.appLocalizations!.loginScreen_login,
+                            context.appLocalizations!.registerScreen_register,
                             style: context.textTheme.labelLarge?.copyWith(
                               color: context.colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
@@ -212,31 +210,28 @@ class _LoginScreenState extends State<LoginScreen> {
         style: defaultStyle,
         children: <TextSpan>[
           TextSpan(
-            text: "${context.appLocalizations!.loginScreen_dontHaveAccount} ",
+            text:
+                "${context.appLocalizations!.registerScreen_alreadyHaveAccount} ",
           ),
           TextSpan(
-            text: context.appLocalizations!.loginScreen_registerNow,
+            text: context.appLocalizations!.registerScreen_backToLogin,
             style: linkStyle,
-            recognizer: TapGestureRecognizer()..onTap = _onTapRegister,
+            recognizer: TapGestureRecognizer()..onTap = () => context.pop(),
           ),
         ],
       ),
     );
   }
 
-  Future<void> _onTapRegister() async {
-    await context.pushNamed(Routes.register.name);
-  }
-
   void _onResult() {
-    if (viewModel.login.isCompleted) {
-      viewModel.login.clearResult();
+    if (viewModel.register.isCompleted) {
+      viewModel.register.clearResult();
       context.go(Routes.home.path);
       return;
     }
 
-    if (viewModel.login.hasError) {
-      final errorCode = viewModel.login.error!.exception.toString();
+    if (viewModel.register.hasError) {
+      final errorCode = viewModel.register.error!.exception.toString();
       final message = _getMessageFromCode(errorCode);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -244,25 +239,23 @@ class _LoginScreenState extends State<LoginScreen> {
           content: Text(message),
           action: SnackBarAction(
             label: context.appLocalizations!.general_tryAgain,
-            onPressed: () => viewModel.login.execute((
+            onPressed: () => viewModel.register.execute((
               _emailController.value.text,
               _passwordController.value.text,
             )),
           ),
         ),
       );
-      viewModel.login.clearResult();
+      viewModel.register.clearResult();
     }
   }
 
   String _getMessageFromCode(String code) {
     switch (code) {
-      case 'user-not-found':
-        return context.appLocalizations!.loginScreen_userNotFound;
-      case 'wrong-password':
-        return context.appLocalizations!.loginScreen_wrongPassword;
-      case 'too-many-requests':
-        return context.appLocalizations!.loginScreen_tooManyRequest;
+      case 'email-already-in-use':
+        return context.appLocalizations!.registerScreen_emailAlreadyInUse;
+      case 'invalid-email':
+        return context.appLocalizations!.error_invalidEmail;
       default:
         return context.appLocalizations!.error_somethingWrong;
     }

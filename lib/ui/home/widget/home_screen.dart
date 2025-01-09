@@ -9,6 +9,7 @@ import 'package:todo/ui/home/view_model/home_view_model.dart';
 import 'package:todo/ui/home/widget/home_app_bar.dart';
 import 'package:todo/ui/home/widget/home_body.dart';
 import 'package:todo/utils/extensions/context_extension.dart';
+import 'package:todo/utils/screen_size.dart';
 import 'package:todo/utils/snackbar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,15 +25,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  HomeViewModel get viewModel => widget.viewModel;
+  final double scaleAnimCircleSize = 30.0;
 
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
+  late FocusNode _focusNode;
 
   bool _isAnimHidden = true;
   bool _showAddTodo = false;
 
-  late FocusNode _focusNode;
+  HomeViewModel get viewModel => widget.viewModel;
 
   @override
   void initState() {
@@ -57,8 +59,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       }
     });
 
-    _scaleAnimation =
-        Tween<double>(begin: 1.0, end: 100.0).animate(_scaleController);
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: (ScreenSize.screenHeight / scaleAnimCircleSize) * 2,
+    ).animate(_scaleController);
   }
 
   @override
@@ -126,9 +130,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final isRunning = viewModel.createTodo.isRunning;
 
         return FloatingActionButton(
-          // // Workaround for https://github.com/flutter/flutter/issues/115358#issuecomment-2117157419
-          // heroTag: null,
-          // key: const ValueKey('add-todo-button'),
           backgroundColor: context.colorScheme.primary,
           isExtended: true,
           onPressed: isRunning
@@ -174,8 +175,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             shape: BoxShape.circle,
             color: context.colorScheme.primaryContainer,
           ),
-          width: 30,
-          height: 30,
+          width: scaleAnimCircleSize,
+          height: scaleAnimCircleSize,
         ),
       ),
     );

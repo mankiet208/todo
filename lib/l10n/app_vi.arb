@@ -2,6 +2,8 @@
   "general_tryAgain": "Thử lại",
   "general_close": "Đóng",
   "error_loadingHome": "Lỗi khi chuẩn bị dữ liệu trang Home",
+  "error_somethingWrong": "Phát hiện lỗi,  vui lòng thử lại sau.",
+  "error_invalidEmail": "Email không hợp lệ.",
   "loginScreen_title1": "Chào mừng đến",
   "loginScreen_title2": "TODO",
   "loginScreen_email": "Email",
@@ -11,6 +13,10 @@
   "loginScreen_registerNow": "Đăng ký ngay",
   "loginScreen_userNotFound": "Không tìm thấy tài khoản.",
   "loginScreen_wrongPassword": "Sai mật khẩu.",
-  "loginScreen_invalidEmail": "Sai email",
-  "loginScreen_invalidPassword": "Mật khẩu phải có tối thiếu 8 kí tự"
+  "loginScreen_tooManyRequest": "Có nhiều đăng nhập liên tục, vui lòng thử lại sau.",
+  "loginScreen_invalidPassword": "Mật khẩu phải có tối thiếu 8 kí tự",
+  "registerScreen_register": "Đăng ký",
+  "registerScreen_emailAlreadyInUse": "Email này đã tồn tại.",
+  "registerScreen_alreadyHaveAccount": "Đã có tài khoản?",
+  "registerScreen_backToLogin": "Trở về trang đăng nhập"
 }

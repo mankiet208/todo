@@ -22,6 +22,23 @@ class AuthFirebaseService {
     }
   }
 
+  Future<Result<void>> register(LoginRequest loginRequest) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: loginRequest.email,
+        password: loginRequest.password,
+      );
+      if (credential.user != null) {
+        return Result.ok(null);
+      } else {
+        return Result.error(AppException('Register failed'));
+      }
+    } on FirebaseAuthException catch (e) {
+      return Result.error(AppException(e.code));
+    }
+  }
+
   Future<Result<void>> logout() async {
     await FirebaseAuth.instance.signOut();
     return Result.ok(null);

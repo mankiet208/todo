@@ -1,7 +1,9 @@
 {
   "general_tryAgain": "Try again",
   "general_close": "Close",
-  "error_loadingHome": "Error while loading home",
+  "error_loadingHome": "Error while loading home.",
+  "error_somethingWrong": "Something is wrong, please try again later.",
+  "error_invalidEmail": "Email is invalid.",
   "loginScreen_title1": "Welcome to",
   "loginScreen_title2": "TODO",
   "loginScreen_email": "Email",
@@ -11,6 +13,10 @@
   "loginScreen_registerNow": "Register now",
   "loginScreen_userNotFound": "No user found for that email.",
   "loginScreen_wrongPassword": "Wrong password provided for that user.",
-  "loginScreen_invalidEmail": "Invalid email format",
-  "loginScreen_invalidPassword": "Password must be at least 8 characters long"
+  "loginScreen_tooManyRequest": "Too many request, please try again later.",
+  "loginScreen_invalidPassword": "Password must be at least 8 characters long.",
+  "registerScreen_register": "Register",
+  "registerScreen_emailAlreadyInUse": "Email is already in used.",
+  "registerScreen_alreadyHaveAccount": "Already have an account?",
+  "registerScreen_backToLogin": "Back to Login"
 }

@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:todo/ui/auth/register/view_model/register_view_model.dart';
+import 'package:todo/ui/auth/register/widget/register_screen.dart';
 import 'package:todo/ui/setting/view_model/setting_view_model.dart';
 
 import 'routes.dart';
@@ -24,12 +26,9 @@ class GoRoutereManager {
 
   final Map<String, Widget> _pages = HashMap();
 
-  // [ISSUE]
-  // The current version of go_router will rebuild parent view
-  // whenever we push() to a child view, or pop() to parent
   GoRouter getRouter(AuthRepository authRepository) {
     return GoRouter(
-      initialLocation: Routes.home.path,
+      initialLocation: Routes.login.path,
       debugLogDiagnostics: true,
       redirect: _redirect,
       refreshListenable: authRepository,
@@ -44,7 +43,21 @@ class GoRoutereManager {
               ),
             );
           },
+          routes: [
+            GoRoute(
+              name: Routes.register.name,
+              path: Routes.register.path,
+              builder: (context, state) {
+                return RegisterScreen(
+                  viewModel: RegisterViewModel(
+                    authRepository: context.read(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
+        //
         GoRoute(
           name: Routes.home.name,
           path: Routes.home.path,
@@ -99,7 +112,11 @@ class GoRoutereManager {
     final bool loggingIn = state.matchedLocation == Routes.login.path;
 
     if (!loggedIn) {
-      return Routes.login.path;
+      if (state.matchedLocation == Routes.login.path) {
+        return Routes.login.path;
+      } else {
+        return null;
+      }
     }
 
     // if the user is logged in but still on the login page, send them to
@@ -112,6 +129,9 @@ class GoRoutereManager {
     return null;
   }
 
+  // [ISSUE]
+  // The current version of go_router will rebuild parent view
+  // whenever we push() to a child view, or pop() to parent
   Widget _getStoredPage({
     required Routes routes,
     required GoRouterPageBuilder pageBuilder,
@@ -122,5 +142,9 @@ class GoRoutereManager {
     if (hasPage) return _pages[routes.name]!;
 
     return pageBuilder();
+  }
+
+  void clearPages() {
+    _pages.clear();
   }
 }

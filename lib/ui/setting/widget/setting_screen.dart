@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo/routing/router.dart';
 import 'package:todo/routing/routes.dart';
 import 'package:todo/ui/core/themes/dimens.dart';
 import 'package:todo/ui/setting/view_model/setting_view_model.dart';
@@ -55,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
     return Padding(
       padding: const EdgeInsets.all(Dimens.padding),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           buildActionItem(
             context,
@@ -92,12 +93,15 @@ class _SettingScreenState extends State<SettingScreen> {
         text,
         style: context.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w500,
+          fontSize: 24,
         ),
       ),
     );
   }
 
   void _onLogOut() {
-    context.go(Routes.home.path);
+    viewModel.logout.clearResult();
+    GoRoutereManager.instance.clearPages();
+    context.go(Routes.login.path);
   }
 }

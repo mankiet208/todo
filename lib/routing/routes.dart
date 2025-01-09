@@ -1,7 +1,7 @@
 enum Routes {
-  home,
   login,
   register,
+  home,
   setting,
 }
 

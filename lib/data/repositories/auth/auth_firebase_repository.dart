@@ -39,6 +39,24 @@ class AuthFirebaseRepository extends AuthRepository {
   }
 
   @override
+  Future<Result<void>> register({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await _service.register(
+        LoginRequest(
+          email: email,
+          password: password,
+        ),
+      );
+      return result;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  @override
   Future<Result<void>> logout() {
     _log.info('User logged out');
     try {
