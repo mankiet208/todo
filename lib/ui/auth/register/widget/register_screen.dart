@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: Icons.person_outline,
                         onChanged: (email) => viewModel.updateEmail(email),
                       ),
-                      const SizedBox(height: Dimens.padding),
+                      const SizedBox(height: Dimensions.padding),
                       _buildTextField(
                         hintText:
                             context.appLocalizations!.loginScreen_password,
@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onChanged: (password) =>
                             viewModel.updatePassword(password),
                       ),
-                      const SizedBox(height: Dimens.padding),
+                      const SizedBox(height: Dimensions.padding),
                       SizedBox(
                         height: 50,
                         child: FilledButton(
@@ -133,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Center(
                         child: _buildBottomText(context),
                       ),
-                      const SizedBox(height: Dimens.padding),
+                      const SizedBox(height: Dimensions.padding),
                     ],
                   ),
                 ),
@@ -216,7 +216,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           TextSpan(
             text: context.appLocalizations!.registerScreen_backToLogin,
             style: linkStyle,
-            recognizer: TapGestureRecognizer()..onTap = () => context.pop(),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                context.go(Routes.login.path);
+              },
           ),
         ],
       ),

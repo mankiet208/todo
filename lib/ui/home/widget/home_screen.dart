@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo/data/services/firebase/model/todo_request/todo_request.dart';
+import 'package:todo/data/services/model/todo_request/todo_request.dart';
 import 'package:todo/routing/routes.dart';
 import 'package:todo/ui/core/themes/dimens.dart';
 import 'package:todo/ui/core/widgets/add_todo_box.dart';
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     _scaleController.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        await context.pushNamed(Routes.setting.name);
+        await context.push(Routes.setting.path);
 
         _resetMenuAnimation();
       }
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _buildSettingTransitionAnimation() {
     return Positioned(
-      left: Dimens.padding,
+      left: Dimensions.padding,
       top: 40,
       child: AnimatedBuilder(
         animation: _scaleAnimation,

@@ -36,8 +36,8 @@ class HomeBody extends StatelessWidget {
 
     return SliverPadding(
       padding: const EdgeInsets.only(
-        left: Dimens.padding,
-        right: Dimens.padding,
+        left: Dimensions.padding,
+        right: Dimensions.padding,
         bottom: 100,
       ),
       sliver: SliverImplicitlyAnimatedList(
@@ -108,7 +108,7 @@ class _ToDo extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: context.colorScheme.onPrimaryContainer,
+              color: context.colorScheme.surface,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black,
@@ -123,8 +123,8 @@ class _ToDo extends StatelessWidget {
               secondary: Icon(Icons.star_outline),
               controlAffinity: ListTileControlAffinity.leading,
               contentPadding: EdgeInsets.symmetric(
-                vertical: Dimens.smallPadding,
-                horizontal: Dimens.padding,
+                vertical: Dimensions.smallPadding,
+                horizontal: Dimensions.padding,
               ),
               activeColor: context.colorScheme.primary,
               checkColor: context.colorScheme.onPrimary,

@@ -1,9 +1,3 @@
-import 'dart:collection';
-
-import 'package:todo/ui/auth/register/view_model/register_view_model.dart';
-import 'package:todo/ui/auth/register/widget/register_screen.dart';
-import 'package:todo/ui/setting/view_model/setting_view_model.dart';
-
 import 'routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +8,9 @@ import 'package:todo/ui/auth/login/widget/login_screen.dart';
 import 'package:todo/ui/home/widget/home_screen.dart';
 import 'package:todo/ui/home/view_model/home_view_model.dart';
 import 'package:todo/ui/setting/widget/setting_screen.dart';
+import 'package:todo/ui/auth/register/view_model/register_view_model.dart';
+import 'package:todo/ui/auth/register/widget/register_screen.dart';
+import 'package:todo/ui/setting/view_model/setting_view_model.dart';
 
 typedef GoRouterPageBuilder = Widget Function();
 
@@ -24,60 +21,24 @@ class GoRoutereManager {
 
   static GoRoutereManager get instance => _instance;
 
-  final Map<String, Widget> _pages = HashMap();
-
   GoRouter getRouter(AuthRepository authRepository) {
     return GoRouter(
-      initialLocation: Routes.login.path,
-      debugLogDiagnostics: true,
       redirect: _redirect,
       refreshListenable: authRepository,
       routes: [
         GoRoute(
-          name: Routes.login.name,
-          path: Routes.login.path,
+          path: Routes.home.path,
           builder: (context, state) {
-            return LoginScreen(
-              viewModel: LoginViewModel(
+            return HomeScreen(
+              viewModel: HomeViewModel(
                 authRepository: context.read(),
+                todoRepository: context.read(),
               ),
             );
           },
           routes: [
             GoRoute(
-              name: Routes.register.name,
-              path: Routes.register.path,
-              builder: (context, state) {
-                return RegisterScreen(
-                  viewModel: RegisterViewModel(
-                    authRepository: context.read(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-        //
-        GoRoute(
-          name: Routes.home.name,
-          path: Routes.home.path,
-          builder: (context, state) {
-            return _getStoredPage(
-              routes: Routes.home,
-              pageBuilder: () {
-                return HomeScreen(
-                  viewModel: HomeViewModel(
-                    authRepository: context.read(),
-                    todoRepository: context.read(),
-                  ),
-                );
-              },
-            );
-          },
-          routes: [
-            GoRoute(
-              name: Routes.setting.name,
-              path: Routes.setting.name,
+              path: Routes.setting.path,
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
@@ -99,6 +60,26 @@ class GoRoutereManager {
             ),
           ],
         ),
+        GoRoute(
+          path: Routes.login.path,
+          builder: (context, state) {
+            return LoginScreen(
+              viewModel: LoginViewModel(
+                authRepository: context.read(),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.register.path,
+          builder: (context, state) {
+            return RegisterScreen(
+              viewModel: RegisterViewModel(
+                authRepository: context.read(),
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -112,11 +93,11 @@ class GoRoutereManager {
     final bool loggingIn = state.matchedLocation == Routes.login.path;
 
     if (!loggedIn) {
-      if (state.matchedLocation == Routes.login.path) {
-        return Routes.login.path;
-      } else {
-        return null;
+      if (state.matchedLocation == Routes.register.path) {
+        return Routes.register.path;
       }
+
+      return Routes.login.path;
     }
 
     // if the user is logged in but still on the login page, send them to
@@ -125,26 +106,6 @@ class GoRoutereManager {
       return Routes.home.path;
     }
 
-    // no need to redirect at all
     return null;
-  }
-
-  // [ISSUE]
-  // The current version of go_router will rebuild parent view
-  // whenever we push() to a child view, or pop() to parent
-  Widget _getStoredPage({
-    required Routes routes,
-    required GoRouterPageBuilder pageBuilder,
-  }) {
-    final hasPage = _pages.containsKey(routes.name);
-
-    // If page exist
-    if (hasPage) return _pages[routes.name]!;
-
-    return pageBuilder();
-  }
-
-  void clearPages() {
-    _pages.clear();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:todo/data/services/firebase/firestore_manager.dart';
-import 'package:todo/data/services/firebase/model/todo_request/todo_request.dart';
+import 'package:todo/data/services/model/todo_request/todo_request.dart';
 import 'package:todo/domain/models/todo/todo.dart';
 import 'package:todo/utils/exception.dart';
 import 'package:todo/utils/result.dart';

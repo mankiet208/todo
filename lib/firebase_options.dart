@@ -17,19 +17,13 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for iOS - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -58,6 +52,24 @@ class DefaultFirebaseOptions {
     messagingSenderId: '189901341773',
     projectId: 'todolist-8c843',
     storageBucket: 'todolist-8c843.firebasestorage.app',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyABG-eoXXQz2HKW97rYUPpgGDnbsMZDuAQ',
+    appId: '1:189901341773:web:f1802593173320a4ab8804',
+    messagingSenderId: '189901341773',
+    projectId: 'todolist-8c843',
+    authDomain: 'todolist-8c843.firebaseapp.com',
+    storageBucket: 'todolist-8c843.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD8ZXuF6nOTly3LLHwISydCqC_wUFWEWPY',
+    appId: '1:189901341773:ios:742f8471305ce6dbab8804',
+    messagingSenderId: '189901341773',
+    projectId: 'todolist-8c843',
+    storageBucket: 'todolist-8c843.firebasestorage.app',
+    iosBundleId: 'com.kiettruong208.todo',
   );
 
 }

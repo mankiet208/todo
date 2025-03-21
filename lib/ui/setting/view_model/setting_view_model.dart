@@ -17,11 +17,16 @@ class SettingViewModel extends ChangeNotifier {
   late Command0 logout;
 
   Future<Result<void>> _logout() async {
-    final result = await _authRepository.logout();
+    try {
+      final result = await _authRepository.logout();
 
-    if (result is Error) {
-      _log.warning('Logout failed! ${result.exception}');
+      if (result is Error) {
+        _log.warning('Logout failed! ${result.exception}');
+      }
+
+      return result;
+    } finally {
+      notifyListeners();
     }
-    return result;
   }
 }

@@ -55,7 +55,7 @@ class HomeAppBar extends StatelessWidget {
             ),
             titlePadding: EdgeInsets.only(
               left: leftPadding,
-              bottom: Dimens.padding,
+              bottom: Dimensions.padding,
             ),
           );
         },

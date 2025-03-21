@@ -6,5 +6,10 @@ enum Routes {
 }
 
 extension RoutesExtension on Routes {
-  String get path => '/$name';
+  String get path {
+    if (this == Routes.home) {
+      return '/';
+    }
+    return '/$name';
+  }
 }

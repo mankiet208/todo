@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logging/logging.dart';
 import 'package:todo/data/repositories/auth/auth_repository.dart';
 import 'package:todo/data/services/firebase/auth_firebase_service.dart';
-import 'package:todo/data/services/firebase/model/login_request/login_request.dart';
+import 'package:todo/data/services/model/login_request/login_request.dart';
 import 'package:todo/utils/result.dart';
 
 class AuthFirebaseRepository extends AuthRepository {

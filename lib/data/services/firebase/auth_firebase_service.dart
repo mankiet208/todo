@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo/data/services/firebase/model/login_request/login_request.dart';
+import 'package:todo/data/services/model/login_request/login_request.dart';
 import 'package:todo/utils/exception.dart';
 import 'package:todo/utils/result.dart';
 

@@ -15,15 +15,15 @@ List<SingleChildWidget> get providerRemote {
     Provider(
       create: (context) => TodoFirestoreService(),
     ),
-    ChangeNotifierProvider(
-      create: (context) => AuthFirebaseRepository(
-        service: context.read(),
-      ) as AuthRepository,
-    ),
     Provider(
       create: (context) => TodoFirebaseRepository(
         service: context.read(),
       ) as TodoRepository,
+    ),
+    ChangeNotifierProvider(
+      create: (context) => AuthFirebaseRepository(
+        service: context.read(),
+      ) as AuthRepository,
     ),
   ];
 }

@@ -18,5 +18,5 @@
   "registerScreen_register": "Đăng ký",
   "registerScreen_emailAlreadyInUse": "Email này đã tồn tại.",
   "registerScreen_alreadyHaveAccount": "Đã có tài khoản?",
-  "registerScreen_backToLogin": "Trở về trang đăng nhập"
+  "registerScreen_backToLogin": "Đăng nhập ngay"
 }

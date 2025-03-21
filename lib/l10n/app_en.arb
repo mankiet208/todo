@@ -18,5 +18,5 @@
   "registerScreen_register": "Register",
   "registerScreen_emailAlreadyInUse": "Email is already in used.",
   "registerScreen_alreadyHaveAccount": "Already have an account?",
-  "registerScreen_backToLogin": "Back to Login"
+  "registerScreen_backToLogin": "Login now"
 }

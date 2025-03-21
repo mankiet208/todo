@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-abstract final class Dimens {
-  const Dimens();
+abstract final class Dimensions {
+  const Dimensions();
 
   static const extraSmallPadding = 4.0;
   static const smallPadding = 8.0;
@@ -26,11 +26,11 @@ abstract final class Dimens {
         vertical: paddingScreenVertical,
       );
 
-  static final Dimens desktop = _DimensDesktop();
-  static final Dimens mobile = _DimensMobile();
+  static final Dimensions desktop = _DimensionsDesktop();
+  static final Dimensions mobile = _DimensionsMobile();
 
   /// Get dimensions definition based on screen size
-  factory Dimens.of(BuildContext context) =>
+  factory Dimensions.of(BuildContext context) =>
       switch (MediaQuery.sizeOf(context).width) {
         > 600 => desktop,
         _ => mobile,
@@ -38,19 +38,19 @@ abstract final class Dimens {
 }
 
 /// Mobile dimensions
-final class _DimensMobile extends Dimens {
+final class _DimensionsMobile extends Dimensions {
   @override
   final double paddingScreenHorizontal = 24.0;
 
   @override
-  final double paddingScreenVertical = Dimens.padding;
+  final double paddingScreenVertical = Dimensions.padding;
 
   @override
   final double profilePictureSize = 64.0;
 }
 
 /// Desktop/Web dimensions
-final class _DimensDesktop extends Dimens {
+final class _DimensionsDesktop extends Dimensions {
   @override
   final double paddingScreenHorizontal = 100.0;
 

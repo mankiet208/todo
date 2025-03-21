@@ -13,3 +13,8 @@ Generate localization files
 ```bash
 $ flutter gen-l10n
 ```
+
+Configure Firebase with FlutterFire CLI
+```bash 
+$ flutterfire configure
+```
